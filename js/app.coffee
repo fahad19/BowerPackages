@@ -9,7 +9,8 @@ module = angular.module 'BowerPackages', []
 module.controller 'IndexController', [
   '$scope',
   '$http'
-  ($scope, $http) ->
+  '$location'
+  ($scope, $http, $location) ->
 
     ##
     # Data
@@ -19,7 +20,6 @@ module.controller 'IndexController', [
     matchedResults = []
 
     $scope.results = []
-
 
     ##
     # Pagination
@@ -93,6 +93,8 @@ module.controller 'IndexController', [
         return false
 
       $scope.page = 1
+      $location.search
+        q: $scope.q
 
       find()
       sort()
@@ -157,6 +159,11 @@ module.controller 'IndexController', [
 
       items = res.data
       $scope.loading = false
+
+      urlParams = $location.search()
+      if urlParams?.q?
+        $scope.q = escape urlParams.q
+
       $scope.refresh()
 
 ]
