@@ -10,7 +10,8 @@ module.controller 'IndexController', [
   '$scope',
   '$http'
   '$location'
-  ($scope, $http, $location) ->
+  '$window'
+  ($scope, $http, $location, $window) ->
 
     ##
     # Data
@@ -169,6 +170,22 @@ module.controller 'IndexController', [
     $scope.formatDate = (timestamp) ->
       moment(timestamp).fromNow()
 
+
+    ##
+    # Key bindings for prev/next
+    #
+    angular.element($window).on 'keydown', (e) ->
+      if document?.activeElement?.id is 'q'
+        return true
+
+      if e.keyCode is 37
+        if !$scope.$$phase
+          $scope.$apply ->
+            $scope.goToPrev()
+      else if e.keyCode is 39
+        if !$scope.$$phase
+          $scope.$apply ->
+            $scope.goToNext()
 
     ##
     # Init
