@@ -28,7 +28,7 @@
 
           <p>Instantly search Bower components!</p>
 
-          <input type="search" results="5" autofocus="autofocus" ng-model="q" ng-change="search()" class="form-control" placeholder="e.g. 'package-name', OR 'keyword', OR 'keyword owner:jquery'" />
+          <input id="q" type="search" results="5" autofocus="autofocus" ng-model="q" ng-change="search()" class="form-control" placeholder="e.g. 'package-name', OR 'keyword', OR 'keyword owner:jquery'" />
         </div>
       </div>
     </header>
@@ -40,7 +40,6 @@
             <table class="table table-hover">
               <thead>
                 <th><a href="javascript:" ng-click="sortResults('name')">Name</a></th>
-                <th><a href="javascript:" ng-click="sortResults('description')">Description</a></th>
                 <th><a href="javascript:" ng-click="sortResults('owner')">Owner</a></th>
                 <th><a href="javascript:" ng-click="sortResults('stars')">Stars</a></th>
                 <th><a href="javascript:" ng-click="sortResults('forks')">Forks</a></th>
@@ -49,12 +48,14 @@
               <tbody>
                 <tr ng-repeat="result in results">
                   <td class="name">
-                    <a href="{{result.website}}">
-                      {{result.name}}
-                      <i class="fa fa-external-link"></i>
-                    </a>
+                    <h4>
+                      <a href="{{result.website}}">
+                        {{result.name}}
+                      </a>
+                    </h4>
+
+                    <p>{{result.description}}</p>
                   </td>
-                  <td class="description">{{result.description}}</td>
                   <td>{{result.owner}}</td>
                   <td>{{result.stars}}</td>
                   <td>{{result.forks}}</td>
