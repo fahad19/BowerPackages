@@ -103,13 +103,19 @@ section {
       margin-top: 20px;
     }
 
+    a {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
     table {
       tr {
         td {
           vertical-align: middle;
 
           &.name {
-            width: 50%;
+            width: 60%;
 
             p {
               .label {
@@ -118,6 +124,16 @@ section {
                 font-weight: normal;
               }
             }
+          }
+
+          &.owners,
+          &.updated {
+            width: 15%;
+          }
+
+          &.stars,
+          &.forks {
+            width: 5%;
           }
         }
       }

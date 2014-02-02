@@ -39,11 +39,11 @@
           <div ng-show="!loading && results.length" class="col-md-12">
             <table class="table table-hover">
               <thead>
-                <th><a href="javascript:" ng-click="sortResults('name')">Name</a></th>
-                <th class="hidden-xs"><a href="javascript:" ng-click="sortResults('owner')">Owner</a></th>
-                <th class="hidden-xs"><a href="javascript:" ng-click="sortResults('stars')">Stars</a></th>
-                <th class="hidden-xs"><a href="javascript:" ng-click="sortResults('forks')">Forks</a></th>
-                <th class="hidden-xs"><a href="javascript:" ng-click="sortResults('updated')">Updated</a></th>
+                <th><a ng-click="sortResults('name')">Name</a></th>
+                <th class="hidden-xs"><a ng-click="sortResults('owner')">Owner</a></th>
+                <th class="hidden-xs"><a ng-click="sortResults('stars')">Stars</a></th>
+                <th class="hidden-xs"><a ng-click="sortResults('forks')">Forks</a></th>
+                <th class="hidden-xs"><a ng-click="sortResults('updated')">Updated</a></th>
               </thead>
               <tbody>
                 <tr ng-repeat="result in results">
@@ -62,10 +62,10 @@
                       <span class="label">Updated: {{formatDate(result.updated)}}</span>
                     </p>
                   </td>
-                  <td class="hidden-xs">{{result.owner}}</td>
-                  <td class="hidden-xs">{{result.stars}}</td>
-                  <td class="hidden-xs">{{result.forks}}</td>
-                  <td class="hidden-xs">{{formatDate(result.updated)}}</td>
+                  <td class="hidden-xs owner">{{result.owner}}</td>
+                  <td class="hidden-xs stars">{{result.stars}}</td>
+                  <td class="hidden-xs forks">{{result.forks}}</td>
+                  <td class="hidden-xs updated">{{formatDate(result.updated)}}</td>
                 </tr>
               </tbody>
             </table>
