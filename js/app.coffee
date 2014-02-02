@@ -26,6 +26,10 @@ module.controller 'IndexController', [
     #
     $scope.q = ''
 
+    $scope.qParams =
+      keyword: null
+      owner: null
+
     $scope.sortField = 'stars'
 
     $scope.sortReverse = true
@@ -43,7 +47,7 @@ module.controller 'IndexController', [
     # Operations
     #
     matchesByName = (item) ->
-      if item.name.indexOf($scope.q.toLowerCase()) > -1
+      if item.name.indexOf($scope.qParams.keyword.toLowerCase()) > -1
         return true
 
       false
@@ -51,7 +55,17 @@ module.controller 'IndexController', [
     matchesByKeyword = (item) ->
       if item.keywords? and item.keywords.length > 0
         for k, keyword of item.keywords
-          if keyword.toLowerCase().indexOf($scope.q.toLowerCase()) > -1
+          if keyword.toLowerCase().indexOf($scope.qParams.keyword.toLowerCase()) > -1
+            return true
+
+      false
+
+    matchesByOwner = (item) ->
+      if !$scope.qParams.owner? or $scope.qParams.owner.length is 0
+        return true
+
+      if item.owner? and item.owner.length > 0
+        if item.owner.toLowerCase().indexOf($scope.qParams.owner.toLowerCase()) > -1
             return true
 
       false
@@ -61,7 +75,7 @@ module.controller 'IndexController', [
         if $scope.q.length is 0
           return true
 
-        if matchesByName(item) or matchesByKeyword(item)
+        if (matchesByName(item) or matchesByKeyword(item)) and matchesByOwner(item)
           return true
 
         false
@@ -91,6 +105,18 @@ module.controller 'IndexController', [
     $scope.search = () ->
       if $scope.loading
         return false
+
+      keywords = []
+      owner    = null
+      for k, v of $scope.q.split ' '
+        if v.indexOf('owner:') is 0
+          owner = v.replace 'owner:', ''
+        else
+          keywords.push v
+
+      $scope.qParams =
+        keyword: keywords.join ' '
+        owner: owner
 
       $scope.page = 1
       $location.search
@@ -162,7 +188,7 @@ module.controller 'IndexController', [
 
       urlParams = $location.search()
       if urlParams?.q?
-        $scope.q = escape urlParams.q
+        $scope.q = urlParams.q
 
       $scope.refresh()
 
