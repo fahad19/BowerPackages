@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Bower Packages - search components instantly!</title>
+
+    <link href="./css/app.css" rel="stylesheet">
+  </head>
+
+  <body ng-app="BowerPackages" ng-controller="IndexController">
+    <header>
+      <div class="container">
+        <div class="col-md-12">
+          <h1>
+            Bower Packages
+          </h1>
+
+          <div class="logo">
+            <a href="http://bower.io/">
+              <img src="./img/bower-logo.png" alt="">
+            </a>
+          </div>
+
+          <p>Instantly search Bower components!</p>
+
+          <input type="search" results="5" ng-model="q" ng-change="search()" class="form-control" placeholder="e.g. 'package-name', OR 'keyword'" />
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <div class="container">
+        <div class="row">
+          <div ng-show="!loading && results.length" class="col-md-12">
+            <table class="table table-hover">
+              <thead>
+                <th><a href="javascript:" ng-click="sortResults('name')">Name</a></th>
+                <th><a href="javascript:" ng-click="sortResults('description')">Description</a></th>
+                <th><a href="javascript:" ng-click="sortResults('owner')">Owner</a></th>
+                <th><a href="javascript:" ng-click="sortResults('stars')">Stars</a></th>
+                <th><a href="javascript:" ng-click="sortResults('forks')">Forks</a></th>
+                <th><a href="javascript:" ng-click="sortResults('updated')">Updated</a></th>
+              </thead>
+              <tbody>
+                <tr ng-repeat="result in results">
+                  <td class="name">
+                    <a href="{{result.website}}">
+                      {{result.name}}
+                      <i class="fa fa-external-link"></i>
+                    </a>
+                  </td>
+                  <td class="description">{{result.description}}</td>
+                  <td>{{result.owner}}</td>
+                  <td>{{result.stars}}</td>
+                  <td>{{result.forks}}</td>
+                  <td>{{formatDate(result.updated)}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <ul ng-show="!loading && results.length" class="pager">
+            <li ng-class="{disabled: !hasPrev()}"><a href="javasript:" ng-click="goToPrev()">&larr; Previous</a></li>
+            <li ng-class="{disabled: !hasNext()}"><a href="javasript:" ng-click="goToNext()">Next &rarr;</a></li>
+          </ul>
+
+          <div ng-show="!loading && results.length" class="pager-info">
+            {{count}} matched results. Showing page {{page}} of {{pagesCount}}.
+          </div>
+
+          <div ng-show="!loading && !results.length" class="col-md-12">
+            <div class="alert alert-warning">
+              You search didn't return any results. Please try a different keyword.
+            </div>
+          </div>
+
+          <div ng-show="loading" class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+          </div>
+
+          <div ng-show="loadingError" class="col-md-12">
+            <div class="alert alert-danger">
+              Couldn't fetch packages list from the registry. Please try refreshing the browser again.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        Built with Bootstrap &amp; AngularJS, by <a href="http://twitter.com/fahad19">@fahad19</a>
+      </div>
+    </footer>
+
+    <a href="https://github.com/fahad19/BowerPackages"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+    <script src="./js/app.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-47493443-2', 'fahad19.github.io');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>
