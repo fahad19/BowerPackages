@@ -118,6 +118,15 @@ section {
             width: 60%;
 
             p {
+              &.description {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                min-height: 40px;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+              }
+
               .label {
                 background: @scheme;
                 display: inline-block;
