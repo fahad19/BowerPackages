@@ -74,8 +74,8 @@
           </div>
 
           <ul ng-show="!loading && results.length" class="pager">
-            <li ng-class="{disabled: !hasPrev()}"><a href="javasript:" ng-click="goToPrev()">&larr; Previous</a></li>
-            <li ng-class="{disabled: !hasNext()}"><a href="javasript:" ng-click="goToNext()">Next &rarr;</a></li>
+            <li ng-class="{disabled: !hasPrev()}"><a ng-click="goToPrev()">&larr; Previous</a></li>
+            <li ng-class="{disabled: !hasNext()}"><a ng-click="goToNext()">Next &rarr;</a></li>
           </ul>
 
           <div ng-show="!loading && results.length" class="pager-info">
